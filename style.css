@@ -133,7 +133,6 @@ button.selected {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    margin-top: 10px; /* Spostato sotto il pulsante reset */
     background-color: #25D366; /* Verde chiaro, ma più elegante */
     color: white;
     padding: 10px 25px;
