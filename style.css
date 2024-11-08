@@ -130,25 +130,20 @@ button.selected {
 
 /* Stile bottone WhatsApp */
 #whatsapp-link {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    background-color: #25D366; /* Verde chiaro, ma più elegante */
-    color: white;
-    padding: 10px 25px;
-    border-radius: 30px;
-    text-decoration: none;
-    font-size: 1.1em;
+    background-color: #d1708b;
+    color: #fff;
+    padding: 12px 18px;
+    border: none;
+    border-radius: 12px;
     font-weight: bold;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
-    transition: all 0.3s ease;
-    gap: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    font-size: 1em;
 }
 
 #whatsapp-link:hover {
-    background-color: #128C7E; /* Verde più scuro */
-    transform: translateY(-4px);
-    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+    background-color: #b3546c;
+    transform: translateY(-3px);
 }
 
 /* Icona per il bottone di WhatsApp */
