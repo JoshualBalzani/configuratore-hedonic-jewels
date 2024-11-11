@@ -107,22 +107,17 @@
     </div>
 
     <!-- Sezione riepilogo -->
-    <div id="summary">
+<div id="summary">
         <h3>Riepilogo Ordine</h3>
-        <ul id="selected-items">
-            <!-- Lista dinamica dei gioielli selezionati -->
-        </ul>
+        <ul id="selected-items"></ul>
         <p id="total-price">Totale: 0€</p>
-        <button id="reset-button" onclick="resetSelection()">Resetta</button>
-        <a href="#" id="whatsapp-link" target="_blank">
+
+        <a href="#" id="whatsapp-link" class="disabled" onclick="checkOrder()" target="_blank">
             <i class="fab fa-whatsapp"></i> Ordina su WhatsApp
         </a>
+        <button id="reset-button" onclick="resetSelection()">Resetta</button>
     </div>
 
     <script src="script.js"></script>
 </body>
 </html>
-
-
-
-
