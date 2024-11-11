@@ -1,74 +1,85 @@
-// Array per tenere traccia dei gioielli selezionati
-let selectedItems = [];
+let cart = [];
+let total = 0;
+let discount = 0; // Variabile per lo sconto
 
 // Funzione per aggiungere un gioiello al carrello
-function addToCart(itemName, itemPrice) {
-    // Controlla se il gioiello è già stato selezionato
-    if (selectedItems.some(item => item.name === itemName)) {
-        alert("Hai già selezionato questo gioiello.");
+function addToCart(name, price) {
+    // Controllo che il gioiello non sia già presente nel carrello
+    if (cart.some(item => item.name === name)) {
+        alert("Questo gioiello è già stato aggiunto!");
         return;
     }
 
-    // Aggiungi il gioiello selezionato all'array
-    selectedItems.push({ name: itemName, price: itemPrice });
+    cart.push({ name, price });
+    total += price;
 
-    // Aggiorna il riepilogo del carrello
+    // Controllo se applicare uno sconto
+    if (cart.length >= 2) {
+        discount = total * 0.1; // 10% di sconto
+    } else {
+        discount = 0; // Nessuno sconto
+    }
+
     updateCartSummary();
 }
 
 // Funzione per aggiornare il riepilogo del carrello
 function updateCartSummary() {
-    const itemList = document.getElementById('selected-items');
-    const totalPriceElement = document.getElementById('total-price');
-    const whatsappLink = document.getElementById('whatsapp-link');
-
-    itemList.innerHTML = '';
-
-    // Calcola il prezzo totale
-    let totalPrice = 0;
-    selectedItems.forEach(item => {
-        const listItem = document.createElement('li');
-        listItem.textContent = `${item.name} - ${item.price.toFixed(2)}€`;
-        itemList.appendChild(listItem);
-        totalPrice += item.price;
+    let itemsList = document.getElementById("selected-items");
+    itemsList.innerHTML = ''; // Svuoto la lista
+    cart.forEach(item => {
+        let li = document.createElement('li');
+        li.textContent = `${item.name} - ${item.price.toFixed(2)}€`;
+        itemsList.appendChild(li);
     });
 
-    // Applica lo sconto
-    if (selectedItems.length >= 3) {
-        totalPrice *= 0.85; // Sconto 15% per 3 o più gioielli
-    } else if (selectedItems.length === 2) {
-        totalPrice *= 0.90; // Sconto 10% per 2 gioielli
-    }
+    // Calcolo il totale con lo sconto
+    let finalTotal = total - discount;
 
-    totalPriceElement.textContent = `Totale: ${totalPrice.toFixed(2)}€`;
-
-    // Abilita o disabilita il pulsante WhatsApp
-    if (selectedItems.length >= 2) {
-        whatsappLink.disabled = false;
-        whatsappLink.classList.remove('disabled');
+    // Aggiorno la visualizzazione del totale e dello sconto
+    document.getElementById("total-price").textContent = `Totale: ${finalTotal.toFixed(2)}€`;
+    if (discount > 0) {
+        document.getElementById("discount-info").textContent = `Sconto applicato: -${discount.toFixed(2)}€`;
     } else {
-        whatsappLink.disabled = true;
-        whatsappLink.classList.add('disabled');
+        document.getElementById("discount-info").textContent = '';
     }
 
-    // Aggiorna il link di WhatsApp
-    const itemsList = selectedItems.map(item => `${item.name} (${item.price.toFixed(2)}€)`).join(', ');
-    const message = `Ho selezionato i seguenti gioielli: ${itemsList}. Prezzo totale: ${totalPrice.toFixed(2)}€.`;
-    whatsappLink.setAttribute('href', `https://wa.me/393924231439?text=${encodeURIComponent(message)}`);
+    // Attivare/disattivare il pulsante WhatsApp in base al numero di gioielli
+    let whatsappButton = document.getElementById("whatsapp-link");
+    if (cart.length < 2) {
+        whatsappButton.disabled = true;
+        document.getElementById("error-message").style.display = "block";
+    } else {
+        whatsappButton.disabled = false;
+        document.getElementById("error-message").style.display = "none";
+    }
 }
 
-// Funzione per resettare la selezione
+// Funzione per resettare il carrello
 function resetSelection() {
-    selectedItems = [];
+    cart = [];
+    total = 0;
+    discount = 0;
     updateCartSummary();
 }
 
-// Funzione per gestire il click sul pulsante WhatsApp
-function handleWhatsAppClick(event) {
-    if (selectedItems.length < 2) {
-        event.preventDefault();
-        alert("Devi selezionare almeno 2 gioielli per effettuare un ordine.");
+// Funzione per verificare l'ordine su WhatsApp
+function checkWhatsApp() {
+    if (cart.length < 2) {
+        alert("Per ordinare su WhatsApp, devi aggiungere almeno 2 gioielli.");
+    } else {
+        window.open("https://wa.me/?text=" + encodeURIComponent(generateOrderMessage()));
     }
 }
 
-document.getElementById('whatsapp-link').addEventListener('click', handleWhatsAppClick);
+// Funzione per generare il messaggio da inviare su WhatsApp
+function generateOrderMessage() {
+    let message = "Ho selezionato i seguenti gioielli:\n";
+    cart.forEach(item => {
+        message += `${item.name} - ${item.price.toFixed(2)}€\n`;
+    });
+    let finalTotal = total - discount;
+    message += `Totale: ${finalTotal.toFixed(2)}€`;
+    return message;
+}
+
