@@ -3,6 +3,12 @@ let selectedItems = [];
 
 // Funzione per aggiungere un gioiello al carrello
 function addToCart(itemName, itemPrice) {
+    // Controlla se il gioiello è già stato selezionato
+    if (selectedItems.some(item => item.name === itemName)) {
+        alert("Hai già selezionato questo gioiello.");
+        return;
+    }
+
     // Aggiungi il gioiello selezionato all'array
     selectedItems.push({ name: itemName, price: itemPrice });
 
@@ -12,12 +18,10 @@ function addToCart(itemName, itemPrice) {
 
 // Funzione per aggiornare il riepilogo del carrello
 function updateCartSummary() {
-    // Seleziona l'elemento della lista e il totale
     const itemList = document.getElementById('selected-items');
     const totalPriceElement = document.getElementById('total-price');
     const whatsappLink = document.getElementById('whatsapp-link');
 
-    // Pulisce la lista dei gioielli selezionati
     itemList.innerHTML = '';
 
     // Calcola il prezzo totale
@@ -36,10 +40,18 @@ function updateCartSummary() {
         totalPrice *= 0.90; // Sconto 10% per 2 gioielli
     }
 
-    // Mostra il totale
     totalPriceElement.textContent = `Totale: ${totalPrice.toFixed(2)}€`;
 
-    // Aggiorna il link di WhatsApp con i dettagli dell'ordine
+    // Abilita o disabilita il pulsante WhatsApp
+    if (selectedItems.length >= 2) {
+        whatsappLink.disabled = false;
+        whatsappLink.classList.remove('disabled');
+    } else {
+        whatsappLink.disabled = true;
+        whatsappLink.classList.add('disabled');
+    }
+
+    // Aggiorna il link di WhatsApp
     const itemsList = selectedItems.map(item => `${item.name} (${item.price.toFixed(2)}€)`).join(', ');
     const message = `Ho selezionato i seguenti gioielli: ${itemsList}. Prezzo totale: ${totalPrice.toFixed(2)}€.`;
     whatsappLink.setAttribute('href', `https://wa.me/393924231439?text=${encodeURIComponent(message)}`);
@@ -47,7 +59,16 @@ function updateCartSummary() {
 
 // Funzione per resettare la selezione
 function resetSelection() {
-    // Svuota l'array e aggiorna la vista
     selectedItems = [];
     updateCartSummary();
 }
+
+// Funzione per gestire il click sul pulsante WhatsApp
+function handleWhatsAppClick(event) {
+    if (selectedItems.length < 2) {
+        event.preventDefault();
+        alert("Devi selezionare almeno 2 gioielli per effettuare un ordine.");
+    }
+}
+
+document.getElementById('whatsapp-link').addEventListener('click', handleWhatsAppClick);
