@@ -20,13 +20,13 @@
                 <img src="COLLANAKATE.jpg" alt="Collana Kate">
                 <h3>Collana Kate</h3>
                 <p class="price">21.90€</p>
-                <button onclick="addToCart('Collana Kate', 21.90)">Aggiungi</button>
+                <button class="add-button" onclick="addToCart('Collana Kate', 21.90)">Aggiungi</button>
             </div>
             <div class="item">
                 <img src="COLLANAHEDONIC.jpg" alt="Collana Hedonic">
                 <h3>Collana Hedonic</h3>
                 <p class="price">26.90€</p>
-                <button onclick="addToCart('Collana Hedonic', 26.90)">Aggiungi</button>
+                <button class="add-button" onclick="addToCart('Collana Hedonic', 26.90)">Aggiungi</button>
             </div>
         </div>
 
@@ -37,19 +37,19 @@
                 <img src="BRACCIALEHEDONIC.jpg" alt="Bracciale Hedonic">
                 <h3>Bracciale Hedonic</h3>
                 <p class="price">24.90€</p>
-                <button onclick="addToCart('Bracciale Hedonic', 24.90)">Aggiungi</button>
+                <button class="add-button" onclick="addToCart('Bracciale Hedonic', 24.90)">Aggiungi</button>
             </div>
             <div class="item">
                 <img src="TENNISZIRCONIA.jpg" alt="Tennis Zirconia">
                 <h3>Tennis Zirconia</h3>
                 <p class="price">29.90€</p>
-                <button onclick="addToCart('Tennis Zirconia', 29.90)">Aggiungi</button>
+                <button class="add-button" onclick="addToCart('Tennis Zirconia', 29.90)">Aggiungi</button>
             </div>
             <div class="item">
-                <img src="BRACCIALEHEART.jpg" alt="Bracciale Perla">
+                <img src="BRACCIALEHEART.jpg" alt="Bracciale Heart">
                 <h3>Bracciale Heart</h3>
                 <p class="price">21.90€</p>
-                <button onclick="addToCart('Bracciale Heart', 21.90)">Aggiungi</button>
+                <button class="add-button" onclick="addToCart('Bracciale Heart', 21.90)">Aggiungi</button>
             </div>
         </div>
 
@@ -60,25 +60,25 @@
                 <img src="HOOPHEDONIC.jpg" alt="Hoop Hedonic">
                 <h3>Hoop Hedonic</h3>
                 <p class="price">22.90€</p>
-                <button onclick="addToCart('Hoop Hedonic', 22.90)">Aggiungi</button>
+                <button class="add-button" onclick="addToCart('Hoop Hedonic', 22.90)">Aggiungi</button>
             </div>
             <div class="item">
                 <img src="ORECCHINIPENELOPE.jpg" alt="Orecchini Penelope">
                 <h3>Orecchini Penelope</h3>
                 <p class="price">19.90€</p>
-                <button onclick="addToCart('Orecchini Penelope', 19.90)">Aggiungi</button>
+                <button class="add-button" onclick="addToCart('Orecchini Penelope', 19.90)">Aggiungi</button>
             </div>
             <div class="item">
-                <img src="ORECCHINIHEART.jpg" alt="Orecchini Penelope">
+                <img src="ORECCHINIHEART.jpg" alt="Orecchini Heart">
                 <h3>Orecchini Heart</h3>
                 <p class="price">19.90€</p>
-                <button onclick="addToCart('Orecchini Heart', 19.90)">Aggiungi</button>
+                <button class="add-button" onclick="addToCart('Orecchini Heart', 19.90)">Aggiungi</button>
             </div>
             <div class="item">
                 <img src="ORECCHINIDAFNE.jpg" alt="Orecchini Dafne">
                 <h3>Orecchini Dafne</h3>
                 <p class="price">19.90€</p>
-                <button onclick="addToCart('Orecchini Dafne', 19.90)">Aggiungi</button>
+                <button class="add-button" onclick="addToCart('Orecchini Dafne', 19.90)">Aggiungi</button>
             </div>
         </div>
 
@@ -89,32 +89,32 @@
                 <img src="ANELLOSHINE.jpg" alt="Anello Shine">
                 <h3>Anello Shine</h3>
                 <p class="price">11.90€</p>
-                <button onclick="addToCart('Anello Shine', 11.90)">Aggiungi</button>
+                <button class="add-button" onclick="addToCart('Anello Shine', 11.90)">Aggiungi</button>
             </div>
             <div class="item">
                 <img src="ANELLORABBET.jpg" alt="Anello Rabbet">
                 <h3>Anello Rabbet</h3>
                 <p class="price">25.90€</p>
-                <button onclick="addToCart('Anello Rabbet', 25.90)">Aggiungi</button>
+                <button class="add-button" onclick="addToCart('Anello Rabbet', 25.90)">Aggiungi</button>
             </div>
             <div class="item">
                 <img src="ANELLOEVELINE.jpg" alt="Anello Eveline">
                 <h3>Anello Eveline</h3>
                 <p class="price">24.90€</p>
-                <button onclick="addToCart('Anello Eveline', 24.90)">Aggiungi</button>
+                <button class="add-button" onclick="addToCart('Anello Eveline', 24.90)">Aggiungi</button>
             </div>
         </div>
     </div>
 
     <!-- Sezione riepilogo -->
-<div id="summary">
+    <div id="summary">
         <h3>Riepilogo Ordine</h3>
-        <ul id="selected-items"></ul>
+        <ul id="selected-items">
+            <!-- Lista dinamica dei gioielli selezionati -->
+        </ul>
         <p id="total-price">Totale: 0€</p>
-
-        <a href="#" id="whatsapp-link" class="disabled" onclick="checkOrder()" target="_blank">
-            <i class="fab fa-whatsapp"></i> Ordina su WhatsApp
-        </a>
+        <p id="error-message" style="color: red; display: none;">Per ordinare su WhatsApp, devi selezionare almeno 2 gioielli.</p>
+        <button id="whatsapp-link" onclick="checkWhatsApp()">Ordina su WhatsApp</button>
         <button id="reset-button" onclick="resetSelection()">Resetta</button>
     </div>
 
