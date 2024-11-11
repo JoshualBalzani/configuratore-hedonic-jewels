@@ -1,3 +1,4 @@
+/* Stile generale del corpo della pagina */
 body {
     font-family: 'Poppins', sans-serif;
     background-color: #fdf4f7;
@@ -5,11 +6,19 @@ body {
     text-align: center;
     padding: 20px;
     margin: 0;
+    line-height: 1.6;
 }
 
 h1 {
     color: #d1708b;
     font-size: 2.5em;
+    margin-bottom: 15px;
+}
+
+p {
+    color: #7d566b;
+    font-size: 1.1em;
+    margin-bottom: 30px;
 }
 
 #jewelry-container {
@@ -19,61 +28,130 @@ h1 {
     gap: 20px;
 }
 
+/* Categorie e gioielli */
+.category {
+    margin-bottom: 40px;
+}
+
 .item {
     background-color: #ffeef3;
     border: 1px solid #e3a1b1;
     border-radius: 16px;
     padding: 15px;
+    margin: 10px;
+    text-align: center;
     width: 220px;
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-button {
+.item:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px;
+    margin-bottom: 15px;
+}
+
+h3 {
+    color: #9e6885;
+    font-size: 1.2em;
+    margin-bottom: 10px;
+}
+
+.price {
+    color: #d1708b;
+    font-size: 1.4em;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+button.add-button {
     background-color: #d1708b;
-    color: #fff;
-    padding: 12px 18px;
+    color: white;
+    padding: 10px 20px;
     border: none;
-    border-radius: 12px;
+    border-radius: 8px;
     cursor: pointer;
-    transition: transform 0.3s;
-    margin-top: 10px;
+    font-size: 1em;
+    transition: background-color 0.3s ease;
 }
 
-button:hover {
+button.add-button:hover {
     background-color: #b3546c;
 }
 
+/* Riepilogo ordine */
 #summary {
-    margin-top: 50px;
-    background-color: #fff0f4;
+    background-color: #fff2f5;
     padding: 20px;
-    border-radius: 20px;
-}
-
-#whatsapp-link {
-    background-color: #d1708b;
-    color: #fff;
-    padding: 15px 20px;
     border-radius: 12px;
-    display: block;
-    margin: 15px auto;
-    text-decoration: none;
+    width: 80%;
+    max-width: 500px;
+    margin: 40px auto;
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+}
+
+#summary h3 {
+    color: #9e6885;
+    font-size: 1.5em;
+    margin-bottom: 20px;
+}
+
+#selected-items {
+    list-style: none;
+    padding-left: 0;
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+#selected-items li {
+    color: #7d566b;
+    font-size: 1.2em;
+}
+
+#total-price {
+    font-size: 1.5em;
     font-weight: bold;
-    transition: transform 0.3s;
+    color: #d1708b;
+    margin-bottom: 20px;
 }
 
-#whatsapp-link.disabled {
-    background-color: #bfbfbf;
-    cursor: not-allowed;
-}
-
-#reset-button {
+#whatsapp-link, #reset-button {
     background-color: #d1708b;
-    color: #fff;
-    padding: 10px 14px;
-    border-radius: 10px;
-    display: block;
+    color: white;
+    font-size: 1.2em;
+    padding: 15px;
+    border-radius: 12px;
+    width: 100%;
+    max-width: 300px;
     margin: 10px auto;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#whatsapp-link:hover, #reset-button:hover {
+    background-color: #b3546c;
+}
+
+/* Responsività per dispositivi mobili */
+@media (max-width: 768px) {
+    #jewelry-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .item {
+        width: 90%;
+    }
+
+    #summary {
+        width: 100%;
+    }
 }
 
 
