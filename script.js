@@ -68,7 +68,7 @@ function checkWhatsApp() {
     if (cart.length < 2) {
         alert("Per ordinare su WhatsApp, devi aggiungere almeno 2 gioielli.");
     } else {
-        window.open("https://wa.me/?text=" + encodeURIComponent(generateOrderMessage()));
+        window.open("https://wa.me/393924231439?text=" + encodeURIComponent(generateOrderMessage()));
     }
 }
 
