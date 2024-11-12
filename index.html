@@ -109,13 +109,14 @@
     <!-- Sezione riepilogo -->
     <div id="summary">
         <h3>Riepilogo Ordine</h3>
-        <ul id="selected-items">
-            <!-- Lista dinamica dei gioielli selezionati -->
-        </ul>
-        <p id="total-price">Totale: 0€</p>
-        <p id="error-message" style="color: red; display: none;">Per ordinare su WhatsApp, devi selezionare almeno 2 gioielli.</p>
-        <button id="whatsapp-link" onclick="checkWhatsApp()">Ordina su WhatsApp</button>
-        <button id="reset-button" onclick="resetSelection()">Resetta</button>
+        <ul id="selected-items"></ul>
+        <p id="discount-info"></p>
+        <p id="total-price">Totale: 0.00€</p>
+        <p id="error-message" style="display: none; color: #d1708b;">Seleziona almeno 2 gioielli per procedere</p>
+        <button id="whatsapp-link" onclick="checkWhatsApp()" disabled>
+            <i class="fab fa-whatsapp"></i> Ordina su WhatsApp
+        </button>
+        <button id="reset-button" onclick="resetSelection()">Ricomincia</button>
     </div>
 
     <script src="script.js"></script>
