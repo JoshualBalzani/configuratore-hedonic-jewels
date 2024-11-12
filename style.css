@@ -443,6 +443,21 @@ button.add-button:hover {
     animation: fadeIn 0.2s ease;
 }
 
+/* Mobile-specific tooltip adjustments */
+@media (max-width: 768px) {
+    .tooltip:hover::before {
+        bottom: auto;
+        top: 100%;
+        margin-top: 5px;
+        font-size: 0.7em;
+        padding: 6px;
+        width: auto;
+        max-width: 120px;
+        white-space: normal;
+        text-align: center;
+    }
+}
+
 /* Add to animations */
 @keyframes popIn {
     from { transform: scale(0); }
