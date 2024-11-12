@@ -91,6 +91,31 @@ class ShoppingCart {
         this.updateUI();
         this.showToast('Carrello svuotato');
     }
+
+    checkWhatsApp() {
+        if (this.cart.length < 2) {
+            this.showToast('Seleziona almeno 2 gioielli');
+            return;
+        }
+
+        const message = this.generateWhatsAppMessage();
+        const encodedMessage = encodeURIComponent(message);
+        const whatsappNumber = '3293891883'; // Replace with your number
+        const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`;
+        window.open(whatsappUrl, '_blank');
+    }
+
+    generateWhatsAppMessage() {
+        const items = this.cart.map(item => 
+            `• ${item.name} - ${item.price.toFixed(2)}€`
+        ).join('\n');
+
+        const finalTotal = this.total - this.discount;
+        
+        return `Ciao! Vorrei ordinare questo set:\n\n${items}\n\n` + 
+               `${this.discount > 0 ? `Sconto applicato: -${this.discount.toFixed(2)}€\n` : ''}` +
+               `Totale: ${finalTotal.toFixed(2)}€`;
+    }
 }
 
 const shop = new ShoppingCart();
@@ -103,3 +128,5 @@ document.querySelectorAll('.add-button').forEach(button => {
 });
 
 document.getElementById('reset-button').onclick = () => shop.reset();
+
+document.getElementById('whatsapp-link').onclick = () => shop.checkWhatsApp();
