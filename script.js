@@ -100,7 +100,7 @@ class ShoppingCart {
 
         const message = this.generateWhatsAppMessage();
         const encodedMessage = encodeURIComponent(message);
-        const whatsappNumber = '3293891883'; // Replace with your number
+        const whatsappNumber = '+393924231439'; // Replace with your number
         const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`;
         window.open(whatsappUrl, '_blank');
     }
