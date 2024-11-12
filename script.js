@@ -21,20 +21,31 @@ class ShoppingCart {
         this.processing = true;
 
         try {
+            const itemElement = button.closest('.item');
+            
             if (this.cart.some(item => item.name === name)) {
-                throw new Error("Articolo già nel carrello");
+                // Remove item if already in cart
+                this.cart = this.cart.filter(item => item.name !== name);
+                itemElement.classList.remove('selected');
+                button.textContent = 'Aggiungi';
+                this.showToast('Articolo rimosso dal carrello');
+            } else {
+                // Add item to cart
+                await new Promise(resolve => setTimeout(resolve, 300));
+                this.cart.push({ name, price });
+                itemElement.classList.add('selected');
+                button.textContent = 'Rimuovi';
+                this.showToast('Articolo aggiunto al carrello');
             }
 
-            await new Promise(resolve => setTimeout(resolve, 300)); // Simulate network delay
-            this.cart.push({ name, price });
             this.calculateTotal();
-            this.showToast('Articolo aggiunto al carrello');
         } catch (error) {
             this.showToast(error.message);
         } finally {
             button.classList.remove('loading');
             this.processing = false;
             this.updateUI();
+            this.updateButtonStates();
         }
     }
 
@@ -84,11 +95,31 @@ class ShoppingCart {
             this.cart.length < 2 ? 'block' : 'none';
     }
 
+    updateButtonStates() {
+        document.querySelectorAll('.add-button').forEach(button => {
+            const itemName = button.closest('.item').querySelector('h3').textContent;
+            const isSelected = this.cart.some(item => item.name === itemName);
+            
+            button.textContent = isSelected ? 'Rimuovi' : 'Aggiungi';
+            button.classList.toggle('selected', isSelected);
+            
+            // Add tooltip
+            button.setAttribute('data-tooltip', 
+                isSelected ? 'Clicca per rimuovere' : 'Clicca per aggiungere al set'
+            );
+            button.classList.add('tooltip');
+        });
+    }
+
     reset() {
         this.cart = [];
         this.total = 0;
         this.discount = 0;
+        document.querySelectorAll('.item').forEach(item => {
+            item.classList.remove('selected');
+        });
         this.updateUI();
+        this.updateButtonStates();
         this.showToast('Carrello svuotato');
     }
 
@@ -100,7 +131,7 @@ class ShoppingCart {
 
         const message = this.generateWhatsAppMessage();
         const encodedMessage = encodeURIComponent(message);
-        const whatsappNumber = '+393924231439'; // Replace with your number
+        const whatsappNumber = '3293891883'; // Replace with your number
         const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`;
         window.open(whatsappUrl, '_blank');
     }
@@ -130,3 +161,9 @@ document.querySelectorAll('.add-button').forEach(button => {
 document.getElementById('reset-button').onclick = () => shop.reset();
 
 document.getElementById('whatsapp-link').onclick = () => shop.checkWhatsApp();
+
+// Initialize tooltips
+document.querySelectorAll('.add-button').forEach(button => {
+    button.classList.add('tooltip');
+    button.setAttribute('data-tooltip', 'Clicca per aggiungere al set');
+});
